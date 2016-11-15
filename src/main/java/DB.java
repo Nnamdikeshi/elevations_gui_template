@@ -1,3 +1,5 @@
+import com.sun.java.util.jar.pack.DriverResource;
+
 import java.sql.*;
 import java.util.ArrayList;
 
@@ -9,8 +11,8 @@ public class DB {
 
     private static final String JDBC_DRIVER = "com.mysql.cj.jdbc.Driver";        //Configure the driver needed
     private static final String DB_CONNECTION_URL = "jdbc:mysql://localhost:3306/geography";     //Connection string – where's the database?
-    private static final String USER = "clara";   //TODO replace with your username
-    private static final String PASSWORD = "clara";   //TODO replace with your password
+    private static final String USER = "root";   //TODO replace with your username
+    private static final String PASSWORD = "itecitec";   //TODO replace with your password
     private static final String TABLE_NAME = "elevations";
     private static final String PLACE_COL = "place";
     private static final String ELEV_COL = "elev";
@@ -51,7 +53,6 @@ public class DB {
             se.printStackTrace();
         }
     }
-
 
     void addRecord(Elevation elevation)  {
 
@@ -104,6 +105,28 @@ public class DB {
             return null;  //since we have to return something.
         }
     }
+    void delete(Elevation elevation) {
 
+        try (Connection conn = DriverManager.getConnection(DB_CONNECTION_URL, USER, PASSWORD)) {
+
+            String deleteSQLTemplate = "DELETE FROM %s WHERE = ? AND %s = ?";
+            String deleteSQL = String.format(deleteSQLTemplate, TABLE_NAME, PLACE_COL, ELEV_COL);
+            System.out.println("The SQL for the prepared statement is " + deleteSQL);
+            PreparedStatement deletePreparedStatement = conn.prepareStatement(deleteSQL);
+            deletePreparedStatement.setString(1, elevation.place);
+            deletePreparedStatement.setDouble(2, elevation.elevation);
+
+            System.out.println(deletePreparedStatement.toString());
+
+            //delete
+            deletePreparedStatement.execute();
+
+            //And close everything;
+            deletePreparedStatement.close();
+            conn.close();
+        } catch (SQLException sqle) {
+            sqle.printStackTrace();
+        }
+    }
 
 }

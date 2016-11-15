@@ -32,6 +32,9 @@ public class Controller {
     void addRecordToDatabase(Elevation elevation) {
         db.addRecord(elevation);
     }
+    void delete(Elevation eLevation) {
+        db.delete(eLevation);
+    }
 
 
 }
