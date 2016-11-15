@@ -11,8 +11,8 @@ public class DB {
 
     private static final String JDBC_DRIVER = "com.mysql.cj.jdbc.Driver";        //Configure the driver needed
     private static final String DB_CONNECTION_URL = "jdbc:mysql://localhost:3306/geography";     //Connection string – where's the database?
-    private static final String USER = "root";   //TODO replace with your username
-    private static final String PASSWORD = "itecitec";   //TODO replace with your password
+    private static final String USER = "****";   //TODO replace with your username
+    private static final String PASSWORD = "********";   //TODO replace with your password
     private static final String TABLE_NAME = "elevations";
     private static final String PLACE_COL = "place";
     private static final String ELEV_COL = "elev";
